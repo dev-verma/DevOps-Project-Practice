@@ -145,26 +145,35 @@ $sudo docker images
   stage('docker image') {
         sh 'docker build -t vermakqr/mavenwebapp .'
     }
+
 6. Upload Image to Registry
+
  usinig pipeline syntax ---secret key and store in variable
-stage("upload image") {
+
+     stage("upload image") {
          withCredentials([string(credentialsId: 'docker-credential', variable: 'dockerHubPwd')]) {
           sh '''
           docker login -u vermakqr -p "${dockerHubPwd}"
           docker build -t vermakqr/mavenwebapp .
           '''
          }
+        }
 finally docker image uploaded to registry
+
 7.Deploy stage
+
  stage('deploy') {
         sh 'docker run -d -p 8082:8080 vermakqr/mavenwebapp'
     }
+
 Enable 8082 port in Security group
+
 http://public-ip of docker-vm:8082/context-path ---->
 
 ------------------------------------------------------------------------------------------------------------
 final script
---------------
+------------------------------------------------------------------------------------------------------------
+
 node {
     stage('git clone') {
         git branch: 'main', credentialsId: 'Git-Credentials', url: 'https://github.com/dev-verma/maven-web-app.git'
