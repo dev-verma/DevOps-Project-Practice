@@ -1,39 +1,70 @@
 Create a JENKINS Pipeline to automate project build process using below Tools
+
 1.Jenkins
 2.GitHub
 3.Maven
 4.Sonarqube
 5.Nexus
 6.Docker
+
 steps:
+
 1.Create Jenkins-server in aws/gcp
+
 connect to mobaxterm using public ip
+
 install java and jenkins
+
 sudo systemctl enable jenkins
+
 sudo systemctl start jenkins
+
 sudo systemctl status jenkins
+
 http://public-ip:8080/
+
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
 Create Admin Account & Install Required Plugins in Jenkins
+
 2.create nexus-server in vm
+
 connect to mobaxtrm using public ip
+
 Install Docker In Ubuntu VM-----
+
 Run Nexus using docker image:
+
 docker run -d -p 8081:8081 --name nexus sonatype/nexus3
+
  http://public-ip:8081/
+
 Get nexus passsword from Docker Container
+
 sudo docker ps
+
  docker exec -it <container-id> /bin/bash
+
  cat /nexus-data/admin.password 
+
 Login into Nexus Server & Reset pwd
+
 3.create sonar-server in aws/gcp
+
 connect using mobaxtrm using public ip
+
 Install Docker In Ubuntu VM-----
+
 docker -v
+
 Run SonarQube using docker image
+
 docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube:lts-community
+
 Enable 9000 port number in Security Group Inbound Rules & Access Sonar Server
+
 bydefault user-admin
+
          passwd-admin----->login and update password
 
 pipeline stages
@@ -48,6 +79,7 @@ node {
         def mavenCMD = "${mavenHome}/bin/mvn"
         sh "${mavenCMD} clean package"
     }
+
 3.stage('code review') {}---Start SonarQube Server
 
 Login → Generate Sonar Token (Example: sqa_7295ab51385a8042093f97920b44229e6d83609c)
@@ -73,7 +105,9 @@ Add Sonar Stage
         }
     }
 goto sonar server in browser and see project code review
+
 4.Upload Artifact to Nexus
+
 Create Maven (hosted) repository in Nexus
 
 Install Nexus Artifact Uploader Plugin in Jenkins
