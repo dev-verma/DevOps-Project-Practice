@@ -107,7 +107,7 @@ Configure Deployment Stage
 
 stage('Deploy'){ 
     sshagent(['Tomcat-Server-Agent']) {
-        sh 'scp -o StrictHostKeyChecking=no target/01-maven-web-app.war ec2-user@public-ip:/home/ec2-user/apache-tomcat-9.0.80/webapps'
+        sh 'scp -o StrictHostKeyChecking=no target/01-maven-web-app.war ec2-user@private-ip:/home/ec2-user/apache-tomcat-9.0.80/webapps'
     }
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -146,10 +146,11 @@ node {
 
     stage('Deploy'){ 
         sshagent(['Tomcat-Server-Agent']) {
-            sh 'scp -o StrictHostKeyChecking=no target/01-maven-web-app.war ec2-user@15.207.100.83:/home/ec2-user/apache-tomcat-9.0.80/webapps'
+            sh 'scp -o StrictHostKeyChecking=no target/01-maven-web-app.war ec2-user@private-ip:/home/ec2-user/apache-tomcat-9.0.80/webapps'
         }
     }
 }
+
 
 
 
