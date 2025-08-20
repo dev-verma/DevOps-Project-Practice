@@ -116,7 +116,7 @@ stage('Deploy'){
 node {
 
     stage('Clone Repo') {        
-        git credentialsId: 'GIT-Credentials', url: 'https://github.com/ashokitschool/maven-web-app.git'
+        git credentialsId: 'GIT-Credentials', url: 'github-url'
     }
 
     stage('Maven Build') {
@@ -150,4 +150,5 @@ node {
         }
     }
 }
+
 
