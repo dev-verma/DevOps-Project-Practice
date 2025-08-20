@@ -109,7 +109,7 @@ stage('Deploy'){
     sshagent(['Tomcat-Server-Agent']) {
         sh 'scp -o StrictHostKeyChecking=no target/01-maven-web-app.war ec2-user@15.207.100.83:/home/ec2-user/apache-tomcat-9.0.80/webapps'
     }
-} 
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 📌 Final Jenkins Pipeline (Full Script)
 --------------------------------------------
@@ -150,3 +150,4 @@ node {
         }
     }
 }
+
